@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гаджи | Человек за кодом</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #ff6b00;
+    --orange-dim: #c24d00;
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1c1c1c;
+    --border: #242424;
+    --text: #f0f0f0;
+    --muted: #666;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Archivo', sans-serif;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 48px 20px 64px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Avatar */
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 20px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b00, #ff9a3c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 30px;
+    color: #fff;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(#ff6b00, #ff9a3c, #ff6b00, #c24d00, #ff6b00);
+    z-index: 0;
+    animation: spin 8s linear infinite;
+    opacity: 0.6;
+  }
+
+  .avatar-ring-mask {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Name & tagline */
+  .name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  .name span { color: var(--orange); }
+
+  .tagline {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.6s 0.15s ease both;
+  }
+
+  /* Links */
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    text-decoration: none;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    border-radius: inherit;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    background: var(--surface2);
+    border-color: #333;
+  }
+
+  .btn:hover::before { opacity: 1; }
+  .btn:active { transform: translateY(0) scale(0.98); }
+
+  .btn-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-body { flex: 1; }
+
+  .btn-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .btn-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .btn-arrow {
+    font-size: 18px;
+    color: #333;
+    transition: color 0.15s, transform 0.15s;
+  }
+
+  .btn:hover .btn-arrow {
+    color: var(--orange);
+    transform: translateX(3px);
+  }
+
+  /* Icon backgrounds */
+  .ic-ig { background: #1a0f1f; }
+  .ic-tg { background: #0a1929; }
+  .ic-yt { background: #1f0a0a; }
+  .ic-wa { background: #0a1f10; }
+  .ic-em { background: #1a140a; }
+
+  /* Animation delays */
+  .btn:nth-child(1) { animation: fadeUp 0.5s 0.25s ease both; }
+  .btn:nth-child(2) { animation: fadeUp 0.5s 0.32s ease both; }
+  .btn:nth-child(3) { animation: fadeUp 0.5s 0.39s ease both; }
+  .btn:nth-child(4) { animation: fadeUp 0.5s 0.46s ease both; }
+  .btn:nth-child(5) { animation: fadeUp 0.5s 0.53s ease both; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    font-size: 11px;
+    color: #2a2a2a;
+    text-align: center;
+    animation: fadeUp 0.5s 0.7s ease both;
+  }
+
+  .footer span { color: var(--orange-dim); }
+
+  /* Noise overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 36px 16px 48px; }
+    .name { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar">ГИ</div>
+  </div>
+
+  <div class="name">Гаджи | <span>Человек за кодом</span></div>
+  <div class="tagline">IT-специалист · 1C · Автоматизация · AI</div>
+
+  <div class="links">
+
+    <!-- Instagram -->
+    <a class="btn" href="https://instagram.com/gadji.it" target="_blank" rel="noopener">
+      <div class="btn-icon ic-ig">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#f09433"/>
+              <stop offset="30%" stop-color="#e6683c"/>
+              <stop offset="55%" stop-color="#dc2743"/>
+              <stop offset="75%" stop-color="#cc2366"/>
+              <stop offset="100%" stop-color="#bc1888"/>
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="url(#ig)" stroke-width="1.8" fill="none"/>
+          <circle cx="12" cy="12" r="4.2" stroke="url(#ig)" stroke-width="1.8" fill="none"/>
+          <circle cx="17.6" cy="6.4" r="1.1" fill="url(#ig)"/>
+        </svg>
+      </div>
+      <div class="btn-body">
+        <div class="btn-sub">Подписывайся</div>
+        <div class="btn-title">Instagram</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+    <!-- Telegram -->
+    <a class="btn" href="https://t.me/gadji_pro_it" target="_blank" rel="noopener">
+      <div class="btn-icon ic-tg">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#29aae1">
+          <path d="M21.93 3.24l-3.37 16.12c-.25 1.12-.91 1.4-1.85.87l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.03.5l.37-5.2L17.6 6.37c.44-.39-.1-.61-.68-.22L5.27 13.6.26 12.05c-1.07-.33-1.09-1.07.22-1.59l20.47-7.9c.89-.32 1.67.2 1.38 1.68z"/>
+        </svg>
+      </div>
+      <div class="btn-body">
+        <div class="btn-sub">IT-канал</div>
+        <div class="btn-title">Telegram</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+    <!-- YouTube -->
+    <a class="btn" href="https://www.youtube.com/@gadji_it" target="_blank" rel="noopener">
+      <div class="btn-icon ic-yt">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#ff0000">
+          <path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.4 5 12 5 12 5s-4.4 0-7 .1c-.4.1-1.3.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.7.8 1.7.8 2.1.9C6.4 19 12 19 12 19s4.4 0 7-.1c.4-.1 1.3-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM10 15V9l5.2 3-5.2 3z"/>
+        </svg>
+      </div>
+      <div class="btn-body">
+        <div class="btn-sub">Видео</div>
+        <div class="btn-title">YouTube</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+    <!-- WhatsApp -->
+    <a class="btn" href="https://wa.me/79675820916" target="_blank" rel="noopener">
+      <div class="btn-icon ic-wa">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#25d366">
+          <path d="M17.47 14.38c-.3-.15-1.78-.88-2.06-.98s-.47-.15-.67.15-.77.98-.95 1.18-.35.22-.65.07a8.18 8.18 0 01-2.41-1.49 9.13 9.13 0 01-1.67-2.07c-.17-.3 0-.46.13-.6s.3-.35.45-.53a2.06 2.06 0 00.3-.5.56.56 0 000-.53c-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57a1.1 1.1 0 00-.8.37 3.35 3.35 0 00-1.05 2.49 5.83 5.83 0 001.22 3.09 13.33 13.33 0 005.1 4.51 5.97 5.97 0 003.69.62 3.07 3.07 0 002.02-1.43 2.5 2.5 0 00.17-1.43c-.07-.13-.27-.2-.57-.35zm-5.42 7.4h-.05A9.87 9.87 0 017 20.06l-.36-.21-3.72.97.99-3.62-.24-.37a9.88 9.88 0 01-1.51-5.27 9.92 9.92 0 0116.93-7 9.79 9.79 0 012.9 6.98 9.92 9.92 0 01-9.94 9.94zm8.4-18.27A11.82 11.82 0 0012.05 0 11.92 11.92 0 001.1 17.83L0 22l4.28-1.12A11.94 11.94 0 0012.05 24a11.92 11.92 0 0011.95-11.93 11.85 11.85 0 00-3.55-8.56z"/>
+        </svg>
+      </div>
+      <div class="btn-body">
+        <div class="btn-sub">Написать напрямую</div>
+        <div class="btn-title">WhatsApp</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+    <!-- Email -->
+    <a class="btn" href="mailto:satoshicoinbtc@gmail.com">
+      <div class="btn-icon ic-em">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="4" width="20" height="16" rx="3" stroke="#ff6b00" stroke-width="1.8"/>
+          <path d="M2 8l10 7 10-7" stroke="#ff6b00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="btn-body">
+        <div class="btn-sub">Деловые вопросы</div>
+        <div class="btn-title">Email</div>
+      </div>
+      <div class="btn-arrow">›</div>
+    </a>
+
+  </div>
+
+  <div class="footer">© 2025 Гаджи | <span>Человек за кодом</span></div>
+
+</div>
+
+</body>
+</html>
